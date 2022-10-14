@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- 선택한 게 1인지 2인지 3인지 p태그로 출력하기 -->
+    <h2>Test</h2>
+    <ul class = "test">
+        <li><a href ="#">선택1</a></li>
+        <li><a href ="#">선택2</a></li>
+        <li><a href ="#">선택3</a></li>
+    </ul>
+    <p class = "idxNum"></p>
+    <!-- 내거 ..-->
+    <!-- <script>
+        $('ul > li:first').on('click', '선택1').css('background-color','red');
+        
+    </script> -->
+
+    <script>
+        // event 객체
+        // $('.test a').on('click', function(event){
+        //     let tagInfo = event.currentTarget;
+        //     $('p.idxNum').text($(tagInfo).text());
+        // })
+
+        // this
+        $('.test a').click(function(e){
+            // this = event.currentTarget;
+            console.log(this);
+            e.preventDefault();
+            $('p.idxNum').text(this.textContent);
+        })
+    </script>
+
+    
+</body>
+</html>

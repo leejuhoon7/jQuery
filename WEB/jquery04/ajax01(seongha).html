@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        /*
+            $.ajax({
+                // 접속할 주소
+                url : ,
+
+                // 데이터를 전송하는 방식(get, post)
+                type : ,
+
+                // 전송할 데이터
+                data : ,
+
+                // 전송할 데이터 content-type : application/x-www-form-urlencoded(디폴트)
+                contentType : ,
+
+                // 리턴되는 데이터의 타입
+                dataType : ,
+
+                // 전송에 성공했을 경우
+                success : function(data) { <- data는 그냥 매개변수임. 내가 지을 수 있는.
+                    Tip. 데이터를 한번 콘솔에 찍어서 타입이 뭔지를 잘 파악하라
+                },
+
+                // 전송에 실패했을 경우(생략하지마라!) 오류나도 모르는 상황 발생
+                error : function(reject) {
+                    console.log(reject)
+                }
+
+                ※ 추가적으로 알면 좋은 것
+                // async(동기 방식) : false(디폴트:비동기식) -> true(동기식)
+                // beforesend(보내기 이전에 확인할거나 같이보내야할거에 대한 처리(cors)) : function () {
+
+                }
+            });
+        */
+    </script>
+
+    <div id="content"></div>
+
+    <script>
+        $.ajax({
+            url : 'http://192.168.0.2:8081/myserver/empSelect',
+            dataType : 'json',
+            success : function(data) {
+                console.log(data);
+
+                // data -> [{}, {}, {}, ...]
+                // 테이블 생성
+                let table = $('<table border="1"/>');
+                
+                // 테이블 헤더 생성
+                    
+                let trTag = $('<tr/>');
+                
+                    // 1. 이렇게하면 편하긴 한데 필드 순서가 바뀜
+                /*
+                let header = data[0];
+                for (let field in header) {
+                    let th = $('<th/>').text(field);
+                    $(trTag).append(th);
+                }
+                */
+                   // 2. 직접 넣어주기
+                let header = ['employee_id',
+                              'first_name',
+                              'last_name',
+                              'email',
+                              'phone_number',
+                              'hire_date',
+                              'job_id',
+                              'salary',
+                              'commission_pct',
+                              'manager_id',
+                              'department_id'
+                            ];
+                for (let field of header) {
+                    let th = $('<th/>').text(field);
+                    $(trTag).append(th);
+                }
+                $(table).append(trTag);
+
+                // 테이블 각 행 구성 -> 행 = {}
+                $(data).each(function (idx, obj) {
+                    let tr = $('<tr/>');
+
+                    // 행 안의 td들을 구성
+                    for (let field of header) { // 1. in obj  2. of header
+                        let td = $('<td/>').text(obj[field]);
+                        $(tr).append(td);
+                    }
+                    $(table).append(tr);
+                });
+
+                // div 태그에 테이블 append
+                $('#content').append(table);
+
+                $('#content > table td').click(function () {
+                    
+                });
+
+                $('table tr:not(:first)').on({
+                    'mouseover' : function () {
+                        let target = event.currentTarget;
+                        $(target).css('background-color', 'aquaMarine');
+                    },
+                    'mouseout' : function () { 
+                        let target = event.currentTarget;
+                        $(target).css('background-color', 'white');
+                    }
+                });
+
+            /* 
+                // 내 풀이
+                let table = $('<table border="1"/>');
+                let thead = $('<thead/>');
+                let tbody = $('<tbody/>');
+
+                let theadTr = $('<tr/>');
+                
+                $.each(data, function (idx, obj) {
+                    let tr = $('<tr/>');
+                    for (prop in obj) {
+
+                        if (idx == 0) {
+                            let th = $('<th/>').text(prop);
+                            $(theadTr).append(th);
+                        }
+
+                        let td = $('<td/>').text(obj[prop]);
+                        $(tr).append(td);
+                    }
+
+                    $(thead).append(theadTr);
+                    $(tbody).append(tr);
+                });
+
+                $(table).append(thead);
+                $(table).append(tbody);
+                $('#content').append(table);
+
+                // 이벤트 마우스오버아웃
+                $('tbody tr').on({
+                    'mouseover' : function () {
+                        let target = event.currentTarget;
+                        $(target).css('background-color', 'aquaMarine');
+                    },
+                    'mouseout' : function () { 
+                        let target = event.currentTarget;
+                        $(target).css('background-color', 'white');
+                    }
+                });
+            */
+            },
+            error : function(reject) {
+                console.log(reject);
+            }
+        });
+    </script>
+</body>
+</html>

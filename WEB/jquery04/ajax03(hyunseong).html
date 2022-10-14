@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <label for="empId">사원번호</label>
+        <input type="number" id="empId" name="empId">
+        <button type="button" id="selectBtn">조회</button>
+    </div>
+    <form id="info" action="#" onsubmit="return false">
+        <div>
+            <button type="button" id="updateBtn">수정</button>
+            <button type="button" id="deleteBtn">삭제</button>
+        </div>
+        <div>
+            <label for="id">사원번호</label>
+            <input type="number" id="employee_id" name="employee_id" readonly>
+        </div>
+        <div>
+            <label for="last_name">성</label>
+            <input type="text" id="last_name" name="last_name">
+        </div>
+        <div>
+            <label for="last_name">이름</label>
+            <input type="text" id="first_name" name="first_name">
+        </div>
+        <div>
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div>
+            <label for="job_id">직업</label>
+            <input type="text" id="job_id" name="job_id">
+        </div>
+        </form>
+        <script>
+            $(document).ready(function () {
+                $('#selectBtn').click(selectEmployee);
+                $('#updateBtn').click(updateEmployee);
+                $('#deleteBtn').click(deleteEmployee);
+            })
+
+            function selectEmployee() {
+                /*
+                    url : http://192.168.0.2:8081/myserver/empFind
+                    type : get
+                    parameter : employee_id (하나만 보내면 된다)
+                */
+                $.ajax({
+                    url : 'http://192.168.0.2:8081/myserver/empFind',
+                    data: { "employee_id" : $('#empId').val()},
+                    success: function (data) {
+                        for(let field in data) {
+                            // # + employee_id = #employee_id 먼저 결합되고 제이쿼리로 넘겨준다.
+                            // let selector = '#'+field; 익숙치 않으면 이 방법도 있다.
+                            // console.log(typeof selector, selector)
+                            $('#'+field).val(data[field]);
+                        }
+                    },
+                    error: function (reject) {
+                        console.log(reject);
+                    }
+                })
+            }
+
+            function updateEmployee() {
+                /*
+                    url : http://192.168.0.2:8081/myserver/empFind
+                    type : post
+                    parameter : employees테이블의 모든 컬럼
+                                (필수: employee_id, first_name, last_name, email)
+                */
+                $.ajax({
+                    url : 'http://192.168.0.2:8081/myserver/empUpdate',
+                    type : 'post',
+                    data : $('#info').serialize(),
+                    /*data : {
+                        "employee_id" : $('#employee_id').val(),
+                        "first_name" : $('#first_name').val()
+                    },*/
+                    success : function(data){
+                        if(data != null){
+                            alert("수정이 완료되었습니다.");
+                        }
+                    },
+                    error : function(reject){
+                        console.log(reject);
+                    }
+                });
+            }
+
+            function deleteEmployee() {
+                /*
+                    url : http://192.168.0.2:8081/myserver/empFind
+                    type : post
+                    parameter : employee_id (하나만 보내면 된다)
+                */
+                $.ajax({
+                    url : 'http://192.168.0.2:8081/myserver/empDelete',
+                    type : 'post',
+                    data : $('#info').serialize(),
+                    /*data : {
+                        "employee_id" : $('#employee_id').val(),
+                        "first_name" : $('#first_name').val()
+                    },*/
+                    success : function(data){
+                        if(data != null){
+                            alert("삭제 완료되었습니다.");
+                        }
+                    },
+                    error : function(reject){
+                        console.log(reject);
+                    }
+                });
+            }
+        </script>
+</body>
+</html>

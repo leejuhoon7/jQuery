@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+        /*
+            $.ajax({
+                // 접속할 주소
+                url : ,
+
+                // 데이터를 전송하는 방식(get, post)
+                type : ,
+
+                // 전송할 데이터
+                data : ,
+
+                // 전송할 데이터 content-type : application/x-www-form-urlencoded
+                contentType : ,
+
+                // 리턴되는 데이터의 타입
+                dataType : ,
+
+                // 전송에 성공했을 경우
+                success : function(data) {
+
+                },
+
+                // 전송에 실패했을 경우 (생략 하면 에러나오는 게 막힘. 생략 하지마라고 함.)
+                error : function(reject){
+                    console.log(reject);
+                }
+
+                // async : false -> frue (동기식)
+                // beforesend : function(){
+
+                }
+            })
+        */
+    </script>
+    <div id="content"></div>
+    <script>
+        $.ajax({
+            url: 'http://192.168.0.2:8081/myserver/empSelect',
+            dataType: 'json',
+            success: function (data) {
+                // data -> [{}, {}, {}, ...]
+                // 테이블 생성
+                let table = $('<table/>');
+
+                // 테이블 헤더 생성
+                let trTag = $('<tr/>');
+                let header = ["employee_id",
+                              "first_name",
+                              "last_name",
+                              "email",
+                              "phone_number",
+                              "hire_date",
+                              "job_id",
+                              "salary",
+                              "commission_pct",
+                              "manager_id",
+                              "department_id"
+                            ];
+
+                // in 뒤에 나오는 것이 객체여야 한다. 배열이면 of로.
+                for (let field of header) {
+                    let th = $('<th/>').text(field);
+                    $(trTag).append(th);
+                }
+                $(table).append(trTag);
+            
+                //테이블 각 행 구성 -> {}
+                $(data).each(function (idx, obj) {
+                    let tr = $('<tr/>');
+
+                    // 행 안의 td들을 구성
+                    for (let field of header) { // 1. in obj  2. of header
+                        let td = $('<td/>').text(obj[field]);
+                        if(field == "last_name") {
+                            $(td).prop('class', 'name');
+                        }
+                        $(tr).append(td);
+                    }
+                    $(table).append(tr);
+                });
+
+                // div태그에 테이블을 append
+                $('#content').append(table);
+
+                $('#content > table td').click(function(){
+                    let currentTag = this;
+                    // 클릭시 해당 열의 last_name 구하기 방법 1) (많이 쓰는 방식)
+                    let nameTag = $(currentTag).parent().find('td.name');
+                    alert(nameTag.text());
+                    // 클릭시 해당 열의 last_name 구하기 방법 2)
+                    let headerTag = $(currentTag).parent().siblings('tr:has(th)'); 
+                    let index = headerTag.children().index($('th:contains("last_name")'));
+                    let name = $(currentTag).parent().children().eq(index).text();
+                    console.log(name);
+                });
+
+                $('#content > table td').mouseover(function(){
+                    let currentTag = this;
+                    $(currentTag).parent().css('background-color', 'pink');
+                });
+
+                $('#content > table td').mouseout(function(){
+                    let currentTag = this;
+                    $(currentTag).parent().css('background-color', 'white');
+                });
+
+            },
+            error: function (reject) {
+                console.log(reject);
+            }
+        });
+
+    </script>
+</body>
+</html>

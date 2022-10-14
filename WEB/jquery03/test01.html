@@ -10,14 +10,19 @@
 <body>
     <button type="button" id="btn">버튼</button>
     <script>
-        //단일 이벤트 등록
-        $('#btn').on('click',function(){
-            $('body').append('<p>on 단일 이벤트 등록</p>');
+        // //단일 이벤트 등록
+        // $('#btn').on('click',function(){
+        //     $('body').append('<p>on 단일 이벤트 등록</p>');
+        // });
+        // //그룹 이벤트 등록
+        // $('#btn').click(function(){
+        //     $('body').append('<p>on 단일 이벤트 등록<br>(메소드를 통해)</p>')
+        // })
+
+        $('#btn').on({
+            "click" : function(){alert("그룹 이벤트로  click 이벤트 등록")},
+            "mouseover" : function(){$('body').append('<p>그룹 이벤트로 등록</p>')}
         });
-        //그룹 이벤트 등록
-        $('#btn').click(function(){
-            $('body').append('<p>on 단일 이벤트 등록<br>(메소드를 통해)</p>')
-        })
     </script>  
 </body>
 </html>

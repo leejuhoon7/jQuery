@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        /*
+            $.ajax({
+                //접속할 주소
+                url : , 
+                //데이터를 전송하는 방식(get, post)
+                type : ,
+                //전송할 데이터
+                data : ,
+                
+                //전송할 데이터 content-type : application/x-www-form-url-urlencoded
+                contentType : ,
+
+                //리턴되는 데이터의 타입
+                //제이슨 타입으로 안할시 그냥 스트링 타입임.
+                dataType : ,
+
+                //전송에 성공했을 경우
+                success : function(data){
+
+                }, 
+
+                //*기타*
+                //서버 내부에서 문제가 생겨서 넘어오는 경우
+                //비동기 통신에 적합하지 않은 경로로 데이터를 요구한 경우
+                //ajax를 했을때 데이터 반환되는 것을 정확하게 모를시 console로 확인!
+                
+                
+                //전송에 실패했을 경우
+                error : function(reject){
+                    ex)console.log(reject);
+                }
+
+                //async : false -> true (동기식)
+                //beforesend : function(){
+
+                }
+
+
+            })
+        */
+
+    </script>
+    <div id="content"></div>
+    <script>
+        $.ajax({
+            url : 'http://192.168.0.2:8081/myserver/empSelect',
+            dataType : 'json',
+            success : function(data){
+                // 테이블 만드는거도 못함..
+                //data -> [{}, {}, {}, ...]
+                //테이블 생성
+               let table = $('<table/>');
+                //테이블 헤더 생성 : 보류
+               let trTag = $('<tr/>');
+               let header =["employee_id",
+                            "first_name",
+                            "last_name",
+                            "email",
+                            "phone_number",
+                            "hire_date",
+                            "job_id",
+                            "salary",
+                            "commission_pct",
+                            "manager_id",
+                            "department_id"
+                            ];
+               for(let field of header){
+                let th = $('<th/>').text(field);
+                $(trTag).append(th);
+               }
+               $(table).append(trTag);
+                //테이블 각 행 구성 -> 행 = {}
+                $(data).each(function(idx, obj){
+                    let tr = $('<tr/>');
+                    //행 안의 td들을 구성
+                    for(let field of header){
+                        let td = $('<td/>').text(obj[field]);
+                        if(field == "last_name"){
+                            $(td).prop('class', 'name');
+                        }
+                        $(tr).append(td);
+                    }
+                    $(table).append(tr);
+                });
+                //div 태그에 테이블 append
+                $('#content').append(table);
+                    $()
+                $('#content > table td').click(function(){
+                    let currentTag = this;
+                    
+                    //교수님 풀이(다시해보기!)
+                    //1)
+                    let trTag = $(currentTag).parent().find('td.name');
+                    console.log(nameTag.text());
+                    //2)
+                    let headeerTag = $(currentTag).parent().siblings('tr:has(th)');
+                    let index = headerTag.children().index($('th:contains("last_name")'));
+                    let name = $(currentTag).parent().children().eq(index).text();
+                    console.log(name);
+                    
+                })
+                
+                console.log(data);
+            },
+            error : function(reject){
+                console.log(reject);
+            }
+        });
+
+        
+        
+        // alert("안내문구!");
+    </script>
+</body>
+</html>

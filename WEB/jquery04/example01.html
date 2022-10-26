@@ -66,7 +66,7 @@
                 $('div:last').empty(); // 하위에 있는 모든 태그요소 삭제
 
                 $.ajax({
-                    url : 'http://192.168.0.2:8081/myserver/empSelect',
+                    url : 'http://localhost:8081/java/emp/',
                     type : 'get', //보통 조회 get방식 사용
                     dataType : 'json',
                     
@@ -237,7 +237,7 @@
             //수정
             function updateEmployee(){
                 $.ajax({
-                    url : 'http://192.168.0.2:8081/myserver/empUpdate',
+                    url : 'http://192.168.0.11:8081/myserver/empUpdate',
                     type : 'post',
                     //data : { "employee_id" : $('empId').val()},
                     // 값이 많을때 jquery 사용, 대신 form에 있는거만 사용 가능함
@@ -284,7 +284,7 @@
                 // })
 
                 $.ajax({
-                    url : 'http://192.168.0.2/myserver/empDelete',
+                    url : 'http://192.168.0.11/java/emp',
                     type : 'post',
                     data : {"employee_id" : $('employee_id').val()},
                     dataType : 'json',

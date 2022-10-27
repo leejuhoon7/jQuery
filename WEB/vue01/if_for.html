@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h3>배열 중 짝수에 해당하는 값만 출력1</h3>
+        <ul>
+            <li v-for="item in myArray" v-if="item % 2 ==0">{{item}}</li>
+        </ul>
+        <h3>배열 중 짝수에 해당하는 값만 출력2</h3>
+        <ul>
+            <template v-for="item in myArray">
+                <li v-if="item % 2 ==0">{{item}}</li>
+            </template>
+        </ul>
+        <h3>배열 중 짝수에 해당하는 값만 출력3</h3>
+        <ul>
+            <li v-for="item in myArray">{{item}}</li>
+        </ul>
+        <button v-on:click="event1()">짝수만 표시</button>
+        <button v-on:click="event2()">홀수만 표시</button>
+
+        <h3>배열 중 홀수에 해당하는 값만 출력</h3>
+        <ul>
+            <li v-for="item in myArray" v-if="item % 2 ==1">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                myArray: [1, 2, 3, 4, 5, 6],
+                originalData: [1, 2, 3, 4, 5, 6]
+            },
+            methods: {
+                event1: function () {
+                    this.myArray = this.originalData.filter(function (value) {
+                        return value % 2 == 0;
+                    });
+                },
+                event2: function () {
+                    this.myArray = this.originalData.filter(function (value) {
+                        return value % 2 != 0;
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

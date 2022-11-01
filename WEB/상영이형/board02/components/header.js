@@ -28,6 +28,7 @@ export default{
                 })
                 */
                // 2) fetch 사용
+               
                fetch('/board02/data/'+ file)
                .then(response => response.json())
                .then(data => {
@@ -62,4 +63,3 @@ export default{
         }
     }
 };
-

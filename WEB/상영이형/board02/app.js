@@ -1,14 +1,17 @@
-import myHeader from './components/header.js'
+
 import router from './router/router.js'
 
-let template 
-`<div> 
-메롱
+
+let template = `
+<div>
     <router-view></router-view>
 </div>`
 
-new Vue({
+
+
+new Vue ({
     el : '#app',
     template : template,
     router // router : router
+
 })

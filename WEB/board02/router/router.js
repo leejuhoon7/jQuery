@@ -6,12 +6,7 @@ import myBoardWrite from '../components/myBoardWrite.js'
 export default new VueRouter({
     mode : 'history',
     routes : [
-        //main 
-        {
-            path : '/',
-            name : 'main',
-            component : main
-        },
+      
 
         //boardList
         {
@@ -35,7 +30,7 @@ export default new VueRouter({
         //default
         {
             path : '*', // 위에 4가지 경로 제외하고 나머리 경로 redirect
-            redirect : '/'
+            redirect : '/boardList'
         }
     ]
 })

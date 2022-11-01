@@ -3,10 +3,13 @@ import router from './router/router.js'
 
 let template 
 `<div>
-    <my-header v-bind:parentData.sync="this.$data"></my-header>
+    
     <router-view></router-view>
 </div>`
 
 new Vue({
+    el : '#app',
+    template : template,
     
+    router // router : router
 })

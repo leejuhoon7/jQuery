@@ -26,11 +26,26 @@ export default{
                 </div>`,
     data : function(){
         return {
-            Object : []
+            object : []
         }
     },
+  
     created : function(){
-        this.object = this.$parent.getParentData();
+
+        const vueObject = this;
+        
+        $.ajax({
+            url : 'http://192.168.0.2:8081/myserver/boardList',
+            type : 'get', 
+            data : {'id' : 5},
+            dataType : 'json',
+            success : function(data){
+                console.log(data);
+            },
+            error : function(reject){
+                console.log(reject);
+            }
+        })
     },
 
     // props: ['object'], // 외부에서 가져옴

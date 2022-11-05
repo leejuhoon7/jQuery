@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create.html</title>
+</head>
+<body>
+    <input name ="fruit">
+    <button id="btn">추가</button>
+    <ul class="list">
+        <li class="item">사과</li>
+    </ul>
+    <script>
+        btn.addEventListener('click', function(){
+            //li 태그 생성 createElement
+            li = document.createElement('li') //<li></li>
+            //태그 속성을 지정 addAttribute
+            li.setAttribute('class', 'item') //<li class='item'></li>
+            li.classList.add('item')
+            //태그 내용변경 
+            li.innerHTML = document.querySelector('[name="fruit"]').value
+            //태그를 붙인다 appendChild
+            document.querySelector('.list').appendChild(li)
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="board">
+
+
+    </ul>
+    <script>
+        // "?v=m&" "{}" "[]" 다음주에 할 수업
+        url="http://localhost:8081/java/freeBoard/ajax/list"
+        fetch(url, {method:"post"})
+        .then(res => res.json())
+        .then(obj => {
+            //제목
+            for(tl of obj)
+            board.innerHTML += `<li>${tl.title}</li>`
+        })
+
+    </script>
+    
+</body>
+</html>

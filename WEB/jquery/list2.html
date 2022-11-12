@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>그룹(위임) 이벤트</h1>
+    <div id="list">
+        <div data-no="1">첫번째</div>
+        <div data-no="2">두번째</div>
+        <div data-no="3">세번째</div>
+        <br>
+        <span>안녕</span>
+        <p>안녕안녕</p>
+    </div>
+
+    <script>
+        $("#list").on('click', "div" ,clickHandler) // 중간에 div만 추가해주면 div태그만 실행된다!
+
+        $("list").on("click", clickHandler)
+
+        function clickHandler() {
+            // if (window.event.target.tagName == "DIV") {
+                no = $(window.event.target).attr('data-no')
+                //no = $(window.event.target).data('no') 위 코드랑 같음
+                console.log(no)
+            // }
+        }
+    </script>
+
+</body>
+
+</html>

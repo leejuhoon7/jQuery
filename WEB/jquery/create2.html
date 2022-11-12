@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create2.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+    <input name ="fruit">
+    <button id="btn">추가</button>
+    <ul class="list">
+        <li class="item">사과</li>
+    </ul>
+    <script>
+        // txtFruit = document.querySelector('[name="fruit"]')
+        // btn.addEventListener('click', function(){
+        //     inTxt = txtFruit.value
+        //     document.querySelector('.list').innerHTML += `<li class="item">${inTxt}</li>`
+        //     //2개중 1개만
+        //     //document.querySelector('[name="fruit"]').value = ""
+        //    txtFruit.select()
+        //    txtFruit.focus()
+        // })
+
+        // txtFruit.addEventListener("keydown", function(){
+        //     console.log(event.keyCode)
+        //     if(event.keyCode == 13){
+        //         btn.click();
+        //     }
+        // })
+        
+        // javscript -> jquery 변경
+        txtFruit = $('[name="fruit"]')
+        $("#btn").on("click", function(){
+            inTxt = txtFruit.val()
+            $(".list").append(`<li class="item">${inTxt}</li>`)
+            
+        })
+        
+    </script>
+</body>
+</html>
